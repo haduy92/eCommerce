@@ -3,10 +3,10 @@ package service
 import (
 	"fmt"
 
-	"eCommerce/domain/dto"
-	"eCommerce/domain/entity"
-	"eCommerce/errs"
-	"eCommerce/infrastructure/repository"
+	"eCommerce/infrastructure/errs"
+	"eCommerce/model/dto"
+	"eCommerce/model/entity"
+	"eCommerce/repository"
 
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"

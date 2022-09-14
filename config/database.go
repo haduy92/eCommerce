@@ -1,8 +1,8 @@
 package database
 
 import (
-	"eCommerce/domain/entity"
-	"eCommerce/errs"
+	"eCommerce/infrastructure/errs"
+	"eCommerce/model/entity"
 	"fmt"
 	"os"
 	"strconv"

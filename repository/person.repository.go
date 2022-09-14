@@ -3,7 +3,7 @@ package repository
 import (
 	"time"
 
-	"eCommerce/domain/entity"
+	"eCommerce/model/entity"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"

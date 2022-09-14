@@ -4,9 +4,9 @@ import (
 	database "eCommerce/config"
 	"eCommerce/controller"
 	_ "eCommerce/docs"
-	"eCommerce/domain/service"
 	"eCommerce/infrastructure/middleware"
-	"eCommerce/infrastructure/repository"
+	"eCommerce/repository"
+	"eCommerce/service"
 	"fmt"
 	"net/http"
 
