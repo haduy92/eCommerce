@@ -1,0 +1,175 @@
+basePath: /api
+definitions:
+  dto.PersonCreateDto:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      passwordConfirm:
+        type: string
+      role:
+        type: string
+    type: object
+  dto.PersonGetDto:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dto.PersonUpdateDto:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+    type: object
+  errs.ErrResponse:
+    properties:
+      error:
+        $ref: '#/definitions/errs.ServiceError'
+    type: object
+  errs.ServiceError:
+    properties:
+      code:
+        type: string
+      kind:
+        type: string
+      message:
+        type: string
+      param:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: An eCommerce service API in Go using Gin framework.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://tos.santoshk.dev
+  title: eCommerce API
+  version: "1.0"
+paths:
+  /persons:
+    delete:
+      description: Takes a person ID and removes it from the database. Return No Content.
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errs.ErrResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errs.ErrResponse'
+      summary: Delete an existed person
+      tags:
+      - Persons
+    get:
+      description: Responds with the list of all books as JSON.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.PersonGetDto'
+            type: array
+      summary: Get persons array
+      tags:
+      - Persons
+    post:
+      description: Takes a person JSON and store in DB. Return saved ID.
+      parameters:
+      - description: PersonCreateDto JSON
+        in: body
+        name: person
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PersonCreateDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errs.ErrResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errs.ErrResponse'
+      summary: Create a new person
+      tags:
+      - Persons
+    put:
+      description: Takes a person JSON and store in DB. Return No Content.
+      parameters:
+      - description: PersonUpdateDto JSON
+        in: body
+        name: person
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PersonUpdateDto'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errs.ErrResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errs.ErrResponse'
+      summary: Update an existed person
+      tags:
+      - Persons
+  /persons/{id}:
+    get:
+      description: Returns the person whose ID value matches the id.
+      parameters:
+      - description: search person by id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.PersonGetDto'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errs.ErrResponse'
+      summary: Get single person by id
+      tags:
+      - Persons
+swagger: "2.0"

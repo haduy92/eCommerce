@@ -1,0 +1,266 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "An eCommerce service API in Go using Gin framework.",
+        "title": "eCommerce API",
+        "termsOfService": "https://tos.santoshk.dev",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "paths": {
+        "/persons": {
+            "get": {
+                "description": "Responds with the list of all books as JSON.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Persons"
+                ],
+                "summary": "Get persons array",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.PersonGetDto"
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Takes a person JSON and store in DB. Return No Content.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Persons"
+                ],
+                "summary": "Update an existed person",
+                "parameters": [
+                    {
+                        "description": "PersonUpdateDto JSON",
+                        "name": "person",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PersonUpdateDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errs.ErrResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errs.ErrResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Takes a person JSON and store in DB. Return saved ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Persons"
+                ],
+                "summary": "Create a new person",
+                "parameters": [
+                    {
+                        "description": "PersonCreateDto JSON",
+                        "name": "person",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PersonCreateDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errs.ErrResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errs.ErrResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Takes a person ID and removes it from the database. Return No Content.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Persons"
+                ],
+                "summary": "Delete an existed person",
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errs.ErrResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errs.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/persons/{id}": {
+            "get": {
+                "description": "Returns the person whose ID value matches the id.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Persons"
+                ],
+                "summary": "Get single person by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "search person by id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.PersonGetDto"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errs.ErrResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dto.PersonCreateDto": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "passwordConfirm": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.PersonGetDto": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.PersonUpdateDto": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "errs.ErrResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/errs.ServiceError"
+                }
+            }
+        },
+        "errs.ServiceError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "kind": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "param": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
