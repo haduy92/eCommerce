@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"eCommerce/errs"
+	"eCommerce/infrastructure/errs"
 	"time"
 
 	"github.com/google/uuid"
