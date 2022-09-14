@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"eCommerce/errs"
+	"eCommerce/infrastructure/errs"
 
 	"github.com/gin-gonic/gin"
 )
