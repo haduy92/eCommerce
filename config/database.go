@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	"github.com/joho/godotenv"
+	log "github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -33,9 +34,10 @@ func DbURL(dbConfig *DBConfig) string {
 }
 
 func BuildDBConfig() *DBConfig {
-	errEnv := godotenv.Load()
-	if errEnv != nil {
-		panic("Failed to load env file")
+	if errEnv := godotenv.Load(); errEnv != nil {
+		log.Info("Using environment variables")
+	} else {
+		log.Info("Using.env file")
 	}
 
 	intPort, err := strconv.Atoi(os.Getenv("DB_PORT"))
