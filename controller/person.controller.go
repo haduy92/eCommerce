@@ -1,8 +1,8 @@
 package controller
 
 import (
+	"eCommerce/domain/dto"
 	"eCommerce/domain/service"
-	"eCommerce/dto"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
