@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   app:
-    image: ${DOCKER_REGISTRY-}ecommerce-service-app
-    container_name: ecommerce-service-app
+    image: ecommerce-service
+    container_name: ecommerce-service
     build: ./
     ports:
       - 8080:8080
