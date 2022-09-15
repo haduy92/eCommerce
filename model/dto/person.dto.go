@@ -30,22 +30,22 @@ type PersonUpdateDto struct {
 	Email string `json:"email"`
 }
 
-func (p PersonCreateDto) IsValid() error {
+func (p PersonCreateDto) IsCreateDtoValid() error {
 	switch {
 	case p.Name == "":
-		return errs.E(errs.Validation, "Name is required")
+		return errs.E(errs.Validation, errs.Parameter("name"), "Name is required")
 	case p.Email == "":
-		return errs.E(errs.Validation, "Email is required")
+		return errs.E(errs.Validation, errs.Parameter("email"), "Email is required")
 	case p.Role == "":
-		return errs.E(errs.Validation, "Role is required")
+		return errs.E(errs.Validation, errs.Parameter("role"), "Role is required")
 	case p.Password == "":
-		return errs.E(errs.Validation, "Password is required")
+		return errs.E(errs.Validation, errs.Parameter("password"), "Password is required")
 	case len(p.Password) < 8:
-		return errs.E(errs.Validation, "Password must be at least 8 characters")
+		return errs.E(errs.Validation, errs.Parameter("password"), "Password must be at least 8 characters")
 	case p.PasswordConfirm == "":
-		return errs.E(errs.Validation, "Password Confirm is required")
+		return errs.E(errs.Validation, errs.Parameter("passwordConfirm"), "Password Confirm is required")
 	case p.Password != p.PasswordConfirm:
-		return errs.E(errs.Validation, "Password Confirm does not match")
+		return errs.E(errs.Validation, errs.Parameter("passwordConfirm"), "Password Confirm does not match")
 	}
 	return nil
 }
