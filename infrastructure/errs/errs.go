@@ -186,6 +186,9 @@ func E(args ...interface{}) error {
 //		Match(errors.E(upspin.UserName("joe@schmoe.com"), errors.Permission), err)
 //	 tests whether err is an Error with Kind=Permission and User=joe@schmoe.com.
 func Match(err1, err2 error) bool {
+	if err1 == nil && err2 == nil {
+		return true
+	}
 	e1, ok := err1.(*Error)
 	if !ok {
 		return false
