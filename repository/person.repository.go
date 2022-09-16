@@ -32,13 +32,13 @@ func NewPersonRepository(db *gorm.DB) PersonRepository {
 
 func (repo *personRepository) Get(id *uuid.UUID) (*entity.Person, error) {
 	var person *entity.Person
-	result := repo.db.Where("id = ? AND deleted_at IS NULL", id).First(&person)
+	result := repo.db.Where("id = ?", id).First(&person)
 	return person, result.Error
 }
 
 func (repo *personRepository) GetAll() ([]*entity.Person, error) {
 	var persons []*entity.Person
-	result := repo.db.Where("deleted_at IS NULL").Find(&persons)
+	result := repo.db.Find(&persons)
 	return persons, result.Error
 }
 

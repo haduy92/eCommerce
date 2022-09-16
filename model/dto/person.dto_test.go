@@ -4,10 +4,10 @@ import (
 	"eCommerce/infrastructure/errs"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"gotest.tools/assert"
 )
 
-func Test_CreatePersonDto_IsValid(t *testing.T) {
+func TestCreatePersonDto_IsValid(t *testing.T) {
 	personFunc := func() *PersonCreateDto {
 		return &PersonCreateDto{
 			Name:            "John",
@@ -35,7 +35,7 @@ func Test_CreatePersonDto_IsValid(t *testing.T) {
 	p6a.Password = "12345678"
 	p6a.PasswordConfirm = "12345679"
 
-	testCases := []struct {
+	tests := []struct {
 		name     string
 		dto      *PersonCreateDto
 		expected error
@@ -50,9 +50,13 @@ func Test_CreatePersonDto_IsValid(t *testing.T) {
 		{"password confirm not matched", p6a, errs.E(errs.Validation, errs.Parameter("passwordConfirm"), "Password Confirm does not match")},
 	}
 
-	for _, tt := range testCases {
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			actualError := tt.dto.IsCreateDtoValid()
+			if (actualError != nil) && (tt.expected == nil) {
+				t.Errorf("IsCreateDtoValid() error = %v; nil expected", actualError)
+				return
+			}
 			assert.Equal(t, true, errs.Match(tt.expected, actualError))
 		})
 	}
