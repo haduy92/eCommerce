@@ -62,7 +62,7 @@ func (s *PersonRepositoryTestSuite) BeforeTest(_, _ string) {
 		CreatedAt: time.Now(),
 	}
 
-	for i := 1; i < 2; i++ {
+	for i := 0; i < 5; i++ {
 		s.persons = append(s.persons, &entity.Person{
 			ID:        uuid.New(),
 			Name:      fmt.Sprintf("John_%d", i),
