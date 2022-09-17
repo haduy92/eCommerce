@@ -17,7 +17,6 @@ import (
 )
 
 var (
-	db   = database.Init()
 	port = 8080
 )
 
@@ -30,11 +29,13 @@ var (
 // @host           localhost:8080
 // @BasePath       /api
 func main() {
-	defer database.Dispose(db)
-
 	// Initialize log
 	log.SetFormatter(&log.JSONFormatter{})
 	log.SetLevel(log.InfoLevel)
+
+	//Initialize database
+	db := database.Init()
+	defer database.Dispose(db)
 
 	// Initialize Gin
 	gin.SetMode(gin.ReleaseMode)
