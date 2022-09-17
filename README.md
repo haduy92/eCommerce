@@ -8,6 +8,7 @@ A RESTful API project built with Golang to demonstrate some basic CRUD operation
 - [PostgreSQL](https://www.postgresql.org/) - Database
 - [Gin](https://pkg.go.dev/github.com/gin-gonic/gin) - Fastest web framework according to [gin-gonic.com](https://gin-gonic.com/docs/benchmarks)
 - [Gorm](https://gorm.io/) - ORM library
+- [Swagger](https://github.com/swaggo/gin-swagger) - Swagger documentation
 - [Logrus](https://github.com/sirupsen/logrus) - Log Library
 - [SqlMock](https://github.com/DATA-DOG/go-sqlmock) - SQL Mock testing library
 - [GoMock](https://github.com/golang/mock) - Mocking framework for Go
