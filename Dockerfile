@@ -29,11 +29,16 @@ RUN go build -v -o server
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 FROM debian:buster-slim
 RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    ca-certificates && \
-    rm -rf /var/lib/apt/lists/*
+  ca-certificates && \
+  rm -rf /var/lib/apt/lists/*
 
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /app/server /app/server
+
+# Add docker-compose-wait tool
+ENV WAIT_VERSION 2.7.2
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/$WAIT_VERSION/wait /wait
+RUN chmod +x /wait
 
 # Run the web service on container startup.
 CMD ["/app/server"]

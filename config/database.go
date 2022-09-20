@@ -2,7 +2,6 @@ package database
 
 import (
 	"eCommerce/infrastructure/errs"
-	"eCommerce/model/entity"
 	"fmt"
 	"os"
 	"strconv"
@@ -67,10 +66,6 @@ func Init() *gorm.DB {
 		panic(err)
 	}
 
-	err1 := db.AutoMigrate(&entity.Person{})
-	if err1 != nil {
-		panic(err)
-	}
 	return db
 }
 

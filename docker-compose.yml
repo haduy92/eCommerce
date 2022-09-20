@@ -15,8 +15,13 @@ services:
       - DB_NAME=ecommerce
       - DB_HOST=postgres
       - DB_PORT=5432
+      - WAIT_HOSTS=postgres:5432
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=30
+      - WAIT_HOST_CONNECT_TIMEOUT=30
     networks:
       - fullstack
+    command: sh -c "/wait && /app/server"
   db:
     container_name: postgres
     image: postgres:latest
