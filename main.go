@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	swaggerFiles "github.com/swaggo/files"
@@ -39,7 +40,8 @@ func main() {
 
 	// Initialize Gin
 	gin.SetMode(gin.ReleaseMode)
-	r := gin.New()                               // empty engine
+	r := gin.New() // empty engine
+	r.Use(cors.Default())
 	r.Use(middleware.SetCorrelationID())         // adds correlation middleware
 	r.Use(middleware.SetJSONContentTypeHeader()) // adds setting json content type header middleware
 	r.Use(middleware.Logger())                   // adds logger middleware
