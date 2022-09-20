@@ -40,7 +40,7 @@ func main() {
 
 	// Initialize Gin
 	gin.SetMode(gin.ReleaseMode)
-	r := gin.New() // empty engine
+	r := gin.Default()
 	r.Use(cors.Default())
 	r.Use(middleware.SetCorrelationID())         // adds correlation middleware
 	r.Use(middleware.SetJSONContentTypeHeader()) // adds setting json content type header middleware
