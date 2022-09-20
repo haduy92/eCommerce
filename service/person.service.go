@@ -14,7 +14,7 @@ import (
 
 type PersonService interface {
 	Get(*string) (*dto.PersonGetDto, error)
-	GetAll() ([]*dto.PersonGetDto, error)
+	Search(*string) ([]*dto.PersonGetDto, error)
 	Create(*dto.PersonCreateDto) (*uuid.UUID, error)
 	Update(*string, *dto.PersonUpdateDto) error
 	Delete(*string) error
@@ -60,8 +60,8 @@ func (service *personService) Get(id *string) (*dto.PersonGetDto, error) {
 	}
 }
 
-func (service *personService) GetAll() ([]*dto.PersonGetDto, error) {
-	persons, err := service.repo.GetAll()
+func (service *personService) Search(q *string) ([]*dto.PersonGetDto, error) {
+	persons, err := service.repo.Search(q)
 	if err != nil {
 		return nil, err
 	}

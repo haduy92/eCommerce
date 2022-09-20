@@ -114,17 +114,18 @@ func (s *PersonRepositoryTestSuite) TestGet_IdNotExisted_ShouldReturnError() {
 	assert.DeepEqual(s.T(), &entity.Person{}, res)
 }
 
-func (s *PersonRepositoryTestSuite) TestGetAll_HasRows_ShouldReturnData() {
+func (s *PersonRepositoryTestSuite) TestSearch_Matched_ShouldReturnData() {
 	rows := sqlmock.NewRows(s.columns)
 	for _, row := range s.persons {
 		rows.AddRow(row.ID, row.Name, row.Email, row.Password, row.Role, row.CreatedAt, row.UpdatedAt, row.DeletedAt)
 	}
 
-	sql := regexp.QuoteMeta(`SELECT * FROM "person" WHERE "person"."deleted_at" IS NULL`)
+	q := "John"
+	sql := regexp.QuoteMeta(`SELECT * FROM "person" WHERE (name like $1 or email like $2) AND "person"."deleted_at`)
 
-	s.mock.ExpectQuery(sql).WillReturnRows(rows)
+	s.mock.ExpectQuery(sql).WithArgs("%"+q+"%", "%"+q+"%").WillReturnRows(rows)
 
-	res, err := s.repo.GetAll()
+	res, err := s.repo.Search(&q)
 	assert.NilError(s.T(), err)
 	assert.DeepEqual(s.T(), s.persons, res)
 }

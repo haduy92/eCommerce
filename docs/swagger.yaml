@@ -84,7 +84,12 @@ paths:
       tags:
       - Persons
     get:
-      description: Responds with the list of all books as JSON.
+      description: Responds with the list of matched persons as JSON.
+      parameters:
+      - description: Not required.
+        in: query
+        name: q
+        type: string
       produces:
       - application/json
       responses:
@@ -94,7 +99,7 @@ paths:
             items:
               $ref: '#/definitions/dto.PersonGetDto'
             type: array
-      summary: Get persons array
+      summary: Search persons by name or email
       tags:
       - Persons
     post:

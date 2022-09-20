@@ -124,19 +124,19 @@ func (mr *MockPersonRepositoryMockRecorder) Get(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockPersonRepository)(nil).Get), arg0)
 }
 
-// GetAll mocks base method.
-func (m *MockPersonRepository) GetAll() ([]*entity.Person, error) {
+// Search mocks base method.
+func (m *MockPersonRepository) Search(arg0 *string) ([]*entity.Person, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetAll")
+	ret := m.ctrl.Call(m, "Search", arg0)
 	ret0, _ := ret[0].([]*entity.Person)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetAll indicates an expected call of GetAll.
-func (mr *MockPersonRepositoryMockRecorder) GetAll() *gomock.Call {
+// Search indicates an expected call of Search.
+func (mr *MockPersonRepositoryMockRecorder) Search(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAll", reflect.TypeOf((*MockPersonRepository)(nil).GetAll))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Search", reflect.TypeOf((*MockPersonRepository)(nil).Search), arg0)
 }
 
 // Update mocks base method.

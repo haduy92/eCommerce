@@ -19,16 +19,19 @@ func NewPersonController(service service.PersonService) PersonController {
 }
 
 // GetPersons             godoc
-// @Summary      Get persons array
-// @Description  Responds with the list of all books as JSON.
+// @Summary      Search persons by name or email
+// @Description  Responds with the list of matched persons as JSON.
 // @Tags         Persons
 // @Produce      json
+// @Param        q	query string false "Not required."
 // @Success      200  {array}  dto.PersonGetDto
 // @Router       /persons [get]
-func (ctr *PersonController) GetAll(ctx *gin.Context) {
-	response, err := ctr.service.GetAll()
+func (ctr *PersonController) Search(ctx *gin.Context) {
+	q, _ := ctx.GetQuery("q")
+	response, err := ctr.service.Search(&q)
 	if err != nil {
 		ctx.Abort()
+		ctx.Error(err)
 		return
 	}
 	ctx.JSON(http.StatusOK, response)
@@ -133,7 +136,7 @@ func (ctr *PersonController) DeletePerson(ctx *gin.Context) {
 func (ctr *PersonController) RegisterRoutes(rg *gin.RouterGroup) {
 	route := rg.Group("/persons")
 	route.GET("/:id", ctr.GetPersonById)
-	route.GET("/", ctr.GetAll)
+	route.GET("/", ctr.Search)
 	route.POST("/", ctr.CreatePerson)
 	route.PUT("/:id", ctr.UpdatePerson)
 	route.DELETE("/:id", ctr.DeletePerson)

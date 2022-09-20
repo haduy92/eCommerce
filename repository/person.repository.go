@@ -11,7 +11,7 @@ import (
 
 type PersonRepository interface {
 	Get(*uuid.UUID) (*entity.Person, error)
-	GetAll() ([]*entity.Person, error)
+	Search(*string) ([]*entity.Person, error)
 	Create(*entity.Person) (*uuid.UUID, error)
 	Update(*entity.Person) error
 	Delete(*uuid.UUID) error
@@ -36,9 +36,13 @@ func (repo *personRepository) Get(id *uuid.UUID) (*entity.Person, error) {
 	return person, result.Error
 }
 
-func (repo *personRepository) GetAll() ([]*entity.Person, error) {
+func (repo *personRepository) Search(q *string) ([]*entity.Person, error) {
 	var persons []*entity.Person
-	result := repo.db.Find(&persons)
+	var query = repo.db
+	if q != nil {
+		query = query.Where("name like ? or email like ?", "%"+*q+"%", "%"+*q+"%")
+	}
+	result := query.Find(&persons)
 	return persons, result.Error
 }
 

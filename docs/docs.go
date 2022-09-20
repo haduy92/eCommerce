@@ -23,14 +23,22 @@ const docTemplate = `{
     "paths": {
         "/persons": {
             "get": {
-                "description": "Responds with the list of all books as JSON.",
+                "description": "Responds with the list of matched persons as JSON.",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Persons"
                 ],
-                "summary": "Get persons array",
+                "summary": "Search persons by name or email",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Not required.",
+                        "name": "q",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
