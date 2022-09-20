@@ -42,7 +42,7 @@ func (ctr *PersonController) Search(ctx *gin.Context) {
 // @Description  Returns the person whose ID value matches the id.
 // @Tags         Persons
 // @Produce      json
-// @Param        id  path      string  true  "search person by id"
+// @Param        id  path      string  true  "Person id"
 // @Success      200  {object}  dto.PersonGetDto
 // @Failure      404  {object}  errs.ErrResponse
 // @Router       /persons/{id} [get]
@@ -90,7 +90,8 @@ func (ctr *PersonController) CreatePerson(ctx *gin.Context) {
 // @Description  Takes a person JSON and store in DB. Return No Content.
 // @Tags         Persons
 // @Produce      json
-// @Param        person  body      dto.PersonUpdateDto  true  "PersonUpdateDto JSON"
+// @Param        id			path	string							true  "Person id"
+// @Param        person	body	dto.PersonUpdateDto	true  "PersonUpdateDto JSON"
 // @Success      204
 // @Failure      404  {object}  errs.ErrResponse
 // @Failure      400  {object}  errs.ErrResponse
@@ -118,6 +119,7 @@ func (ctr *PersonController) UpdatePerson(ctx *gin.Context) {
 // @Description  Takes a person ID and removes it from the database. Return No Content.
 // @Tags         Persons
 // @Produce      json
+// @Param        id			path	string							true  "Person id"
 // @Success      204
 // @Failure      404  {object}  errs.ErrResponse
 // @Failure      400  {object}  errs.ErrResponse
@@ -136,8 +138,8 @@ func (ctr *PersonController) DeletePerson(ctx *gin.Context) {
 func (ctr *PersonController) RegisterRoutes(rg *gin.RouterGroup) {
 	route := rg.Group("/persons")
 	route.GET("/:id", ctr.GetPersonById)
-	route.GET("/", ctr.Search)
-	route.POST("/", ctr.CreatePerson)
+	route.GET("", ctr.Search)
+	route.POST("", ctr.CreatePerson)
 	route.PUT("/:id", ctr.UpdatePerson)
 	route.DELETE("/:id", ctr.DeletePerson)
 }

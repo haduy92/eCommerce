@@ -62,6 +62,13 @@ const docTemplate = `{
                 "summary": "Update an existed person",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Person id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "description": "PersonUpdateDto JSON",
                         "name": "person",
                         "in": "body",
@@ -139,6 +146,15 @@ const docTemplate = `{
                     "Persons"
                 ],
                 "summary": "Delete an existed person",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Person id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "204": {
                         "description": "No Content"
@@ -171,7 +187,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "search person by id",
+                        "description": "Person id",
                         "name": "id",
                         "in": "path",
                         "required": true
