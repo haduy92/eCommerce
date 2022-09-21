@@ -25,6 +25,17 @@ eCommerce
  ┃ ┣ docs.go
  ┃ ┣ swagger.json
  ┃ ┗ swagger.yaml
+ ┣ frontend
+ ┃ ┣ css
+ ┃ ┃ ┣ normalize.css
+ ┃ ┃ ┗ style.css
+ ┃ ┣ js
+ ┃ ┃ ┣ app.js
+ ┃ ┃ ┗ jquery-3.6.1.min.js
+ ┃ ┣ favicon.ico
+ ┃ ┣ icon.png
+ ┃ ┣ icon.svg
+ ┃ ┗ index.html
  ┣ infrastructure
  ┃ ┣ errs
  ┃ ┃ ┣ errs.go
@@ -75,11 +86,19 @@ eCommerce
 ```shell
 docker-compose up -d --built
 ```
-3. After execution is completed, open a browser and access swagger page at
+3. After execution is completed, swagger page should be accessible at
 
 ```http
 http://localhost:8080/swagger/index.html
 ```
+4. Navigate to folder frontend and open index.html, this is the UI page which allows to filter person list
+
+> #### Note:
+>
+> Due to my lack of experience with go, there is an issue with the cors policy that I could not fix:
+>
+> GET /persons returned CORS policy error but GET /persons?q=a doesn't and works as expected
+
 ### Test API
 
 1. Open terminal/command prompt at the root director of the project and run docker-compose up:
